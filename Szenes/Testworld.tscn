@@ -1,3 +1,35 @@
-[gd_scene format=3 uid="uid://cfsf0c16oryl5"]
+[gd_scene load_steps=6 format=3 uid="uid://cfsf0c16oryl5"]
+
+[ext_resource type="PackedScene" uid="uid://bbm2peu7oce3h" path="res://Models/Dummy.tscn" id="1_3sal4"]
+[ext_resource type="PackedScene" uid="uid://cctybbhpxb1xw" path="res://Models/Box.tscn" id="2_7n0nw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kvpke"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lntcu"]
+albedo_color = Color(0, 0.423529, 0, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_71xto"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_kvpke")
+surface_material_override/0 = SubResource("StandardMaterial3D_lntcu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71xto")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.34202, -0.939693, 0, 0.939693, 0.34202, 1, 1.49502e-08, -4.10753e-08, -9.73418, 4.14, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8.09548, 0)
+
+[node name="Dummy" parent="." instance=ExtResource("1_3sal4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.90935, 0.749407, 1.03616)
+
+[node name="Box" parent="." instance=ExtResource("2_7n0nw")]
+transform = Transform3D(0.919999, 0, 0.39192, 0, 1, 0, -0.39192, 0, 0.919999, 1.78859, 1.11161, -0.872307)

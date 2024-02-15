@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbm2peu7oce3h"]
+
+[ext_resource type="Script" path="res://Models/Dummy.cs" id="1_am0ui"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cvde5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jm36l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cv5o5"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_m01xu"]
+
+[node name="Dummy" type="CharacterBody3D"]
+script = ExtResource("1_am0ui")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_cvde5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_jm36l")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cv5o5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/MeshInstance3D"]
+transform = Transform3D(-3.27835e-08, 0.75, 0, -0.75, -3.27835e-08, 0, 0, 0, 0.75, 0.505, 0.731, 0)
+mesh = SubResource("SphereMesh_m01xu")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cv5o5")

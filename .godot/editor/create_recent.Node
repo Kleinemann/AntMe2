@@ -1,0 +1,10 @@
+StaticBody3D
+CollisionShape3D
+MeshInstance3D
+MeshInstance2D
+MultiMeshInstance3D
+StaticBody2D
+DirectionalLight3D
+CharacterBody3D
+Camera3D
+RigidBody3D
