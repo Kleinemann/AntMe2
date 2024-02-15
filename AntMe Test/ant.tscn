@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctmymwnbkfdm7"]
+
+[ext_resource type="Script" path="res://ant.cs" id="1_8qwsg"]
+[ext_resource type="ArrayMesh" uid="uid://dv0347jxl4nve" path="res://ant.obj" id="1_osm4s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q58pa"]
+radius = 0.172168
+height = 0.832094
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21k5v"]
+albedo_color = Color(0, 0.607843, 0.607843, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ffnh2"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwmc0"]
+albedo_color = Color(0.352941, 0.00392157, 0.341176, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_8qwsg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.000977441, -1, 0, 1, -0.000977441, 0.076534, 0.216543, 0.0540367)
+shape = SubResource("CapsuleShape3D_q58pa")
+
+[node name="CharakterModel" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="CharakterModel"]
+mesh = ExtResource("1_osm4s")
+surface_material_override/0 = SubResource("StandardMaterial3D_21k5v")
+
+[node name="Visor" type="MeshInstance3D" parent="CharakterModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.235236, -0.316597)
+mesh = SubResource("BoxMesh_ffnh2")
+surface_material_override/0 = SubResource("StandardMaterial3D_wwmc0")
