@@ -39,19 +39,19 @@ transform = Transform3D(1, 0, 0, 0, 0.0375332, 0.999295, 0, -0.999295, 0.0375332
 [node name="Wall" parent="." instance=ExtResource("2_rx23m")]
 transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, -1.82867, 0, -0.897411)
 
-[node name="Wall" parent="Wall" instance=ExtResource("2_rx23m")]
-transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, 4.49277, 0, -3.39519)
-
 [node name="Wall2" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, 18.1061, 0, -1.70135)
+transform = Transform3D(2.67228, 0, -1.36342, 0, 3, 0, 1.36342, 0, 2.67228, 7.20825, 0, 4.45126)
 
 [node name="Wall3" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, -6.84255, 0, -25.886)
+transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, 5.76384, 3.8147e-06, -16.6185)
 
 [node name="Wall4" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, -31.6379, 3.8147e-06, -1.33589)
+transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, 4.8497, 3.8147e-06, 14.8086)
 
 [node name="Wall5" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, -6.78612, -3.8147e-06, 22.2173)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, 15.7676, 1.14441e-05, -3.01198)
+
+[node name="Wall6" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, -11.1075, -3.8147e-06, 1.584)
 
 [connection signal="input_event" from="Floor/StaticBody3DFloor" to="." method="_on_static_body_3d_floor_input_event"]

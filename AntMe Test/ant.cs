@@ -1,11 +1,10 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 public partial class ant : RigidBody3D
 {
-	//CollisionObject3D MouseInput;
-
 	Vector3 velocity = Vector3.Forward;
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -17,12 +16,13 @@ public partial class ant : RigidBody3D
 		KinematicCollision3D coll = MoveAndCollide(move);
 		if (coll != null)
 		{
-			if (((Node)coll.GetCollider()).Name == "Wall")
+			Node collider = (Node)coll.GetCollider();
+            if (GetTree().GetNodesInGroup("Walls").Contains(collider))
 			{
-				GD.Print("I collided with ", ((Node)coll.GetCollider()).Name);
+                GD.Print("I collided with ", collider.Name);
 				velocity = velocity.Bounce(coll.GetNormal());
-				//LookAt(GlobalTransform.Origin + velocity + Vector3.Up);
-				//RotateY((float)Math.Atan2(velocity.X, velocity.Z));
+
+				LookAt(GlobalTransform.Origin + velocity + Vector3.Up);
             }
         }
 
@@ -32,7 +32,6 @@ public partial class ant : RigidBody3D
     public override void _Ready()
     {
         base._Ready();
-        //MouseInput.InputEvent += MouseInput_InputEvent;
     }
 
 	
