@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dfw8pfgw83a6i"]
 
 [ext_resource type="PackedScene" uid="uid://ctmymwnbkfdm7" path="res://ant.tscn" id="1_kgvdc"]
-[ext_resource type="Script" path="res://level.cs" id="1_pj52u"]
+[ext_resource type="Script" path="res://Level.cs" id="1_m0a2r"]
 [ext_resource type="PackedScene" uid="uid://buy3yclfostdi" path="res://Wall.tscn" id="2_rx23m"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cc7cw"]
@@ -13,7 +13,7 @@ size = Vector2(20, 10)
 albedo_color = Color(0.603922, 1, 0.388235, 1)
 
 [node name="Envorinment" type="Node3D"]
-script = ExtResource("1_pj52u")
+script = ExtResource("1_m0a2r")
 
 [node name="Floor" type="Node3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -24,6 +24,7 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_cc7cw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_d8hk4")
 surface_material_override/0 = SubResource("StandardMaterial3D_e4o1w")
 
@@ -31,7 +32,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e4o1w")
 transform = Transform3D(1, 0, 0, 0, 0.960784, 0.277298, 0, -0.277298, 0.960784, 0, 3.90242, 9.14516)
 
 [node name="Player" parent="." instance=ExtResource("1_kgvdc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.630157, 0.411332, 2.46304)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.630157, 0.411332, 2.46304)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0375332, 0.999295, 0, -0.999295, 0.0375332, 0, 6.15325, 0)

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class level : Node3D
+public partial class Level : Node3D
 {
 	public static Camera3D CameraCurrent;
 	Camera3D CameraDefault;
@@ -23,8 +23,26 @@ public partial class level : Node3D
         {
             if (mButton.Pressed)
             {
-                CameraDefault.Current = true;
+				if (!CameraDefault.Current)
+					CameraDefault.Current = true;
+				else
+					NewAnt(position);			
             }
         }
 	}
+
+	public void NewAnt(Vector3 position)
+	{
+        PackedScene szene = GD.Load<PackedScene>("res://ant.tscn");
+		Ant a = szene.Instantiate<Ant>();
+
+		float ranX = GD.Randf() - 0.5F;
+        float ranZ = GD.Randf() - 0.5F;
+        a.velocity = new Vector3(ranX, 0, ranZ).Normalized();
+
+		a.Position = position;
+        AddChild(a);
+
+        a.LookAt(a.Position - a.velocity);
+    }
 }

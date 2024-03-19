@@ -1,37 +1,30 @@
 using Godot;
-using System;
-using System.Diagnostics;
-using System.Linq;
 
-public partial class ant : RigidBody3D
+public partial class Ant : RigidBody3D
 {
-	Vector3 velocity = Vector3.Forward;
+	public Vector3 velocity = Vector3.Forward;
+	float speed = 2.5f;
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector3 move = new Vector3(velocity.X * (float)delta, velocity.Y, velocity.Z * (float)delta);
-		move *= 2;
-		KinematicCollision3D coll = MoveAndCollide(move);
+		Vector3 direction = new Vector3(velocity.X, 0, velocity.Z).Normalized();
+        Vector3 move = direction * (float)delta * speed;
+
+        KinematicCollision3D coll = MoveAndCollide(move);
 		if (coll != null)
 		{
 			Node collider = (Node)coll.GetCollider();
-            if (GetTree().GetNodesInGroup("Walls").Contains(collider))
+
+            if (GetTree().GetNodesInGroup("Walls").Contains(collider) || GetTree().GetNodesInGroup("Ants").Contains(collider))
 			{
                 GD.Print("I collided with ", collider.Name);
 				velocity = velocity.Bounce(coll.GetNormal());
 
-				LookAt(GlobalTransform.Origin + velocity + Vector3.Up);
+                LookAt(Position - velocity.Normalized());
             }
         }
-
-    }
-
-
-    public override void _Ready()
-    {
-        base._Ready();
     }
 
 	
@@ -41,8 +34,9 @@ public partial class ant : RigidBody3D
 		{
 			if (mButton.Pressed)
 			{
-				level.CameraCurrent = GetNode<Camera3D>("Camera3D");
-				level.CameraCurrent.Current = true;
+				GD.Print("FLOOR");
+				Level.CameraCurrent = GetNode<Camera3D>("Camera3D");
+				Level.CameraCurrent.Current = true;
             }
 		}
     }

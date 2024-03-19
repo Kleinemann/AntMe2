@@ -8,6 +8,12 @@
       "executablePath": "C:\\Godot_v4.1.1-stable_mono_win64\\Godot_v4.1.1-stable_mono_win64.exe",
       "commandLineArgs": "--path . --verbose",
       "workingDirectory": "."
+    },
+    "Godot BDV": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Worspace_Godot\\Godot_v4.1.3-stable_mono_win64\\Godot_v4.1.3-stable_mono_win64.exe",
+      "commandLineArgs": "--path . --verbose",
+      "workingDirectory": "."
     }
   }
 }
