@@ -1,4 +1,5 @@
-res://ant.cs
-res://level.tscn
 res://ant.tscn
+res://level.tscn
 res://Wall.tscn
+res://ant.cs
+res://level.cs

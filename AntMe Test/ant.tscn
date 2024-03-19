@@ -16,7 +16,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwmc0"]
 albedo_color = Color(0.352941, 0.00392157, 0.341176, 1)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="RigidBody3D"]
 script = ExtResource("1_8qwsg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -33,3 +33,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_21k5v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.235236, -0.316597)
 mesh = SubResource("BoxMesh_ffnh2")
 surface_material_override/0 = SubResource("StandardMaterial3D_wwmc0")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.889384, 0.45716, 0, -0.45716, 0.889384, 0.0834811, 3.41417, 2.74672)
+
+[connection signal="input_event" from="." to="." method="MouseInput_InputEvent"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfw8pfgw83a6i"]
+[gd_scene load_steps=7 format=3 uid="uid://dfw8pfgw83a6i"]
 
 [ext_resource type="PackedScene" uid="uid://ctmymwnbkfdm7" path="res://ant.tscn" id="1_kgvdc"]
+[ext_resource type="Script" path="res://level.cs" id="1_pj52u"]
 [ext_resource type="PackedScene" uid="uid://buy3yclfostdi" path="res://Wall.tscn" id="2_rx23m"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cc7cw"]
@@ -12,12 +13,14 @@ size = Vector2(20, 10)
 albedo_color = Color(0.603922, 1, 0.388235, 1)
 
 [node name="Envorinment" type="Node3D"]
+script = ExtResource("1_pj52u")
 
 [node name="Floor" type="Node3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3DFloor" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3DFloor"]
 shape = SubResource("WorldBoundaryShape3D_cc7cw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
@@ -28,10 +31,27 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e4o1w")
 transform = Transform3D(1, 0, 0, 0, 0.960784, 0.277298, 0, -0.277298, 0.960784, 0, 3.90242, 9.14516)
 
 [node name="Player" parent="." instance=ExtResource("1_kgvdc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36624, 0, -1.73796)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.630157, 0.411332, 2.46304)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0375332, 0.999295, 0, -0.999295, 0.0375332, 0, 6.15325, 0)
 
-[node name="StaticBody3D" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(1.786, 0, -0.900101, 0, 2, 0, 0.900101, 0, 1.786, -1.06599, 0, 1.64516)
+[node name="Wall" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, -1.82867, 0, -0.897411)
+
+[node name="Wall" parent="Wall" instance=ExtResource("2_rx23m")]
+transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, 4.49277, 0, -3.39519)
+
+[node name="Wall2" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, 18.1061, 0, -1.70135)
+
+[node name="Wall3" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, -6.84255, 0, -25.886)
+
+[node name="Wall4" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 50, -31.6379, 3.8147e-06, -1.33589)
+
+[node name="Wall5" parent="." instance=ExtResource("2_rx23m")]
+transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 2, -6.78612, -3.8147e-06, 22.2173)
+
+[connection signal="input_event" from="Floor/StaticBody3DFloor" to="." method="_on_static_body_3d_floor_input_event"]

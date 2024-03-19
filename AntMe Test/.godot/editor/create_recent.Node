@@ -1,9 +1,11 @@
+Camera3D
+RigidBody3D
+RigidBody2D
 MeshInstance3D
 StaticBody3D
 CollisionShape3D
 DirectionalLight3D
 Node3D
 CharacterBody3D
-Camera3D
 WorldEnvironment
 CharacterBody2D
