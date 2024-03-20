@@ -1,14 +1,47 @@
+using AntMeLib;
 using Godot;
 
-public partial class Ant : RigidBody3D
+public partial class Ant : RigidBody3D, iAnt
 {
 	public Vector3 velocity = Vector3.Forward;
 	float speed = 2.5f;
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+    float turnSpeed = 1f;
 
-	public override void _PhysicsProcess(double delta)
+    StatusEnum _status;
+
+
+    public StatusEnum Status
+    {
+        get => _status;
+        set => _status = value;
+    }
+
+    public void Move()
+    {
+        _status = StatusEnum.MOVE;
+    }
+
+    public void Stop()
+    {
+        _status = StatusEnum.WAIT;
+    }
+
+    public void Wait()
+    {
+        
+    }
+
+    public override void _Ready()
+    {
+        _status = StatusEnum.WAIT;
+    }
+
+
+    public override void _PhysicsProcess(double delta)
 	{
+        if (Status != StatusEnum.MOVE)
+            return;
+
 		Vector3 direction = new Vector3(velocity.X, 0, velocity.Z).Normalized();
         Vector3 move = direction * (float)delta * speed;
 

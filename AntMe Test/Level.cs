@@ -1,3 +1,4 @@
+using AntMeLib;
 using Godot;
 using System;
 
@@ -5,6 +6,7 @@ public partial class Level : Node3D
 {
 	public static Camera3D CameraCurrent;
 	Camera3D CameraDefault;
+	bool running = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -12,10 +14,23 @@ public partial class Level : Node3D
 		CameraDefault = GetViewport().GetCamera3D();			
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_select"))
+        {
+            running = !running;
+
+            foreach (var a in GetTree().GetNodesInGroup("Ants"))
+            {
+                Ant ant = a as Ant;
+                if (running)
+                    ant.Move();
+                else
+                    ant.Stop();
+            }
+        }
+    }
+
 
     public void _on_static_body_3d_floor_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, long shapeIdx)
     {
@@ -26,7 +41,7 @@ public partial class Level : Node3D
 				if (!CameraDefault.Current)
 					CameraDefault.Current = true;
 				else
-					NewAnt(position);			
+					NewAnt(position);
             }
         }
 	}
@@ -44,5 +59,8 @@ public partial class Level : Node3D
         AddChild(a);
 
         a.LookAt(a.Position - a.velocity);
+
+        if(running)
+            a.Move();
     }
 }
