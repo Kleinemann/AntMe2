@@ -1,6 +1,8 @@
 using AntMeLib;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 public partial class Level : Node3D
 {
@@ -8,10 +10,34 @@ public partial class Level : Node3D
 	Camera3D CameraDefault;
 	bool running = false;
 
+    List<AmeiseBasis> Kolonies = new List<AmeiseBasis>();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		CameraDefault = GetViewport().GetCamera3D();			
+		CameraDefault = GetViewport().GetCamera3D();
+
+        LadeKolonieen();
+    }
+
+    void LadeKolonieen()
+    {
+        Kolonies.Clear();
+
+        var ass = new AssemblyName("AntMeKolonie");
+        Assembly assembly = Assembly.Load(ass);
+        Type[] types = assembly.GetExportedTypes();
+
+        foreach (Type t in types)
+        {
+            if (t.BaseType.Name == "AmeiseBasis")
+            {
+                AmeiseBasis ameise = (AmeiseBasis)Activator.CreateInstance(t);
+                Kolonies.Add(ameise);
+            }
+        }
+
+        GD.Print(ass);
     }
 
     public override void _Input(InputEvent @event)

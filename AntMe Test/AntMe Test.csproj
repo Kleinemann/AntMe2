@@ -5,6 +5,7 @@
     <RootNamespace>AntMeTest</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AntMeKolonie\AntMeKolonie.csproj" />
     <ProjectReference Include="..\AntMeLib\AntMeLib.csproj" />
   </ItemGroup>
   <ItemGroup>
