@@ -8,9 +8,9 @@ public partial class Level : Node3D
 {
 	public static Camera3D CameraCurrent;
 	Camera3D CameraDefault;
-	bool running = false;
+	public static bool running = true;
 
-    List<AmeiseBasis> Kolonies = new List<AmeiseBasis>();
+    List<Type> Kolonies = new List<Type>();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -18,6 +18,8 @@ public partial class Level : Node3D
 		CameraDefault = GetViewport().GetCamera3D();
 
         LadeKolonieen();
+
+        NewAnt(new Vector3());
     }
 
     void LadeKolonieen()
@@ -32,8 +34,7 @@ public partial class Level : Node3D
         {
             if (t.BaseType.Name == "AmeiseBasis")
             {
-                AmeiseBasis ameise = (AmeiseBasis)Activator.CreateInstance(t);
-                Kolonies.Add(ameise);
+                Kolonies.Add(t);
             }
         }
 
@@ -45,15 +46,6 @@ public partial class Level : Node3D
         if (@event.IsActionPressed("ui_select"))
         {
             running = !running;
-
-            foreach (var a in GetTree().GetNodesInGroup("Ants"))
-            {
-                Ant ant = a as Ant;
-                if (running)
-                    ant.Move();
-                else
-                    ant.Stop();
-            }
         }
     }
 
@@ -76,8 +68,9 @@ public partial class Level : Node3D
 	{
         PackedScene szene = GD.Load<PackedScene>("res://ant.tscn");
 		Ant a = szene.Instantiate<Ant>();
+        a.Sim = (AmeiseBasis)Activator.CreateInstance(Kolonies[0]);
 
-		float ranX = GD.Randf() - 0.5F;
+        float ranX = GD.Randf() - 0.5F;
         float ranZ = GD.Randf() - 0.5F;
         a.velocity = new Vector3(ranX, 0, ranZ).Normalized();
 
@@ -85,8 +78,5 @@ public partial class Level : Node3D
         AddChild(a);
 
         a.LookAt(a.Position - a.velocity);
-
-        if(running)
-            a.Move();
     }
 }

@@ -11,7 +11,7 @@ namespace AntMeKolonie
     {
         public override void Wait()
         {
-            Move();
+            //Move();
         }
     }
 }

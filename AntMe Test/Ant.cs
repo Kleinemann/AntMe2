@@ -7,56 +7,70 @@ public partial class Ant : RigidBody3D, iAnt
 	float speed = 2.5f;
     float turnSpeed = 1f;
 
-    StatusEnum _status;
+    public AmeiseBasis Sim;
 
+    #region Controll Sim Ant
 
     public StatusEnum Status
     {
-        get => _status;
-        set => _status = value;
+        get => Sim.Status;
     }
 
     public void Move()
     {
-        _status = StatusEnum.MOVE;
+        Sim.Move();
     }
 
     public void Stop()
     {
-        _status = StatusEnum.WAIT;
+        Sim.Stop();
     }
 
     public void Wait()
     {
-        
+        Sim.Wait();
     }
+
+    #endregion
 
     public override void _Ready()
     {
-        _status = StatusEnum.WAIT;
+        Sim.Stop();
     }
 
 
     public override void _PhysicsProcess(double delta)
-	{
-        if (Status != StatusEnum.MOVE)
+    {
+        if (!Level.running)
             return;
 
-		Vector3 direction = new Vector3(velocity.X, 0, velocity.Z).Normalized();
-        Vector3 move = direction * (float)delta * speed;
+        switch (Sim.Status)
+        {
+            case StatusEnum.MOVE:
+                Vector3 direction = new Vector3(velocity.X, 0, velocity.Z).Normalized();
+                Vector3 move = direction * (float)delta * speed;
 
-        KinematicCollision3D coll = MoveAndCollide(move);
-		if (coll != null)
-		{
-			Node collider = (Node)coll.GetCollider();
+                KinematicCollision3D coll = MoveAndCollide(move);
+                if (coll != null)
+                {
+                    Node collider = (Node)coll.GetCollider();
 
-            if (GetTree().GetNodesInGroup("Walls").Contains(collider) || GetTree().GetNodesInGroup("Ants").Contains(collider))
-			{
-                GD.Print("I collided with ", collider.Name);
-				velocity = velocity.Bounce(coll.GetNormal());
+                    if (GetTree().GetNodesInGroup("Walls").Contains(collider) || GetTree().GetNodesInGroup("Ants").Contains(collider))
+                    {
+                        GD.Print("I collided with ", collider.Name);
+                        velocity = velocity.Bounce(coll.GetNormal());
 
-                LookAt(Position - velocity.Normalized());
-            }
+                        LookAt(Position - velocity.Normalized());
+                    }
+                }
+                break;
+
+            case StatusEnum.WAIT:
+                Sim.Wait();
+                break;
+
+            case StatusEnum.TURN:
+                break;
         }
     }
 

@@ -1,8 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfw8pfgw83a6i"]
+[gd_scene load_steps=9 format=3 uid="uid://dfw8pfgw83a6i"]
 
-[ext_resource type="PackedScene" uid="uid://ctmymwnbkfdm7" path="res://ant.tscn" id="1_kgvdc"]
 [ext_resource type="Script" path="res://Level.cs" id="1_m0a2r"]
 [ext_resource type="PackedScene" uid="uid://buy3yclfostdi" path="res://Wall.tscn" id="2_rx23m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8mrft"]
+sky_top_color = Color(0.345098, 0.447059, 0.956863, 1)
+sky_horizon_color = Color(0.533333, 0.678431, 0.776471, 1)
+ground_bottom_color = Color(0.603922, 1, 0.388235, 1)
+ground_horizon_color = Color(0.603922, 1, 0.388235, 1)
+
+[sub_resource type="Sky" id="Sky_bbhkk"]
+sky_material = SubResource("ProceduralSkyMaterial_8mrft")
+
+[sub_resource type="Environment" id="Environment_k7bho"]
+background_mode = 2
+sky = SubResource("Sky_bbhkk")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cc7cw"]
 
@@ -14,6 +26,9 @@ albedo_color = Color(0.603922, 1, 0.388235, 1)
 
 [node name="Envorinment" type="Node3D"]
 script = ExtResource("1_m0a2r")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k7bho")
 
 [node name="Floor" type="Node3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -29,9 +44,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e4o1w")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.960784, 0.277298, 0, -0.277298, 0.960784, 0, 3.90242, 9.14516)
-
-[node name="Player" parent="." instance=ExtResource("1_kgvdc")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.630157, 0.411332, 2.46304)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0375332, 0.999295, 0, -0.999295, 0.0375332, 0, 6.15325, 0)
