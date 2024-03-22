@@ -11,15 +11,29 @@ public partial class Level : Node3D
 	public static bool running = true;
 
     List<Type> Kolonies = new List<Type>();
+    Control ui;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		CameraDefault = GetViewport().GetCamera3D();
+        if (GameOptions.Seed > 0)
+        {
+            GD.Seed((ulong)GameOptions.Seed);
+            GameOptions.Rand = new Random((int)GameOptions.Seed);
+        }
+        else
+        {
+            GD.Randomize();
+            GameOptions.Rand = new Random();
+        }
+        CameraDefault = GetViewport().GetCamera3D();
 
         LadeKolonieen();
 
+        ui = GetNode<Control>("UiControl");
         NewAnt(new Vector3());
+
     }
 
     void LadeKolonieen()
@@ -41,12 +55,28 @@ public partial class Level : Node3D
         GD.Print(ass);
     }
 
+    public override void _Process(double delta)
+    {
+        Label lFps = ui.GetNode<Label>("PlayerInfoBox/txtFps");
+        lFps.Text = Performance.GetMonitor(Performance.Monitor.TimeFps).ToString();
+
+        Label lAnts = ui.GetNode<Label>("PlayerInfoBox/txtAnts");
+        lAnts.Text = GetTree().GetNodesInGroup("Ants").Count.ToString();
+
+        Label lRunning = ui.GetNode<Label>("PlayerInfoBox/txtRunning");
+        lRunning.Text = running ? "Running" : "Pause";
+        lRunning.LabelSettings.FontColor = running ? Colors.Green : Colors.Red;
+    }
+
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("ui_select"))
         {
             running = !running;
         }
+
+        if (@event.IsActionPressed("cancel"))
+            GetTree().Quit();
     }
 
 
@@ -69,6 +99,8 @@ public partial class Level : Node3D
         PackedScene szene = GD.Load<PackedScene>("res://ant.tscn");
 		Ant a = szene.Instantiate<Ant>();
         a.Sim = (AmeiseBasis)Activator.CreateInstance(Kolonies[0]);
+        
+        GD.Print(a.Sim.AntName);
 
         float ranX = GD.Randf() - 0.5F;
         float ranZ = GD.Randf() - 0.5F;

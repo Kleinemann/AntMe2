@@ -11,10 +11,9 @@ public partial class Ant : RigidBody3D, iAnt
 
     #region Controll Sim Ant
 
-    public StatusEnum Status
-    {
-        get => Sim.Status;
-    }
+    public string AntName => Sim.AntName;
+
+    public StatusEnum Status => Sim.Status;
 
     public void Move()
     {
@@ -57,7 +56,11 @@ public partial class Ant : RigidBody3D, iAnt
 
                     if (GetTree().GetNodesInGroup("Walls").Contains(collider) || GetTree().GetNodesInGroup("Ants").Contains(collider))
                     {
-                        GD.Print("I collided with ", collider.Name);
+                        if(collider is Ant)
+                            GD.Print(string.Format("{0}: zusammenstoﬂ mit {1}", AntName, ((collider) as Ant).AntName));
+                        else
+                            GD.Print(string.Format("{0}: zusammenstoﬂ mit {1}", AntName, collider.Name)); 
+
                         velocity = velocity.Bounce(coll.GetNormal());
 
                         LookAt(Position - velocity.Normalized());

@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbt22bw1wo0sq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bcx4"]
+bg_color = Color(1, 1, 1, 0.431373)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_350ua"]
+font_color = Color(0, 1, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -981.0
+offset_bottom = -329.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerInfoBox" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2bcx4")
+
+[node name="Label" type="Label" parent="PlayerInfoBox"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 49.0
+offset_bottom = 32.0
+text = "FPS:"
+
+[node name="Label2" type="Label" parent="PlayerInfoBox"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 27.0
+offset_right = 53.0
+offset_bottom = 53.0
+text = "ANTS:"
+
+[node name="txtRunning" type="Label" parent="PlayerInfoBox"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 49.0
+offset_right = 72.0
+offset_bottom = 75.0
+text = "Running"
+label_settings = SubResource("LabelSettings_350ua")
+
+[node name="txtFps" type="Label" parent="PlayerInfoBox"]
+offset_left = 58.0
+offset_top = 5.0
+offset_right = 98.0
+offset_bottom = 31.0
+text = "0"
+
+[node name="txtAnts" type="Label" parent="PlayerInfoBox"]
+offset_left = 58.0
+offset_top = 28.0
+offset_right = 104.0
+offset_bottom = 54.0
+text = "0"
