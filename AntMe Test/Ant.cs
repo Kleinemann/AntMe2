@@ -57,9 +57,9 @@ public partial class Ant : RigidBody3D, iAnt
                     if (GetTree().GetNodesInGroup("Walls").Contains(collider) || GetTree().GetNodesInGroup("Ants").Contains(collider))
                     {
                         if(collider is Ant)
-                            GD.Print(string.Format("{0}: zusammenstoﬂ mit {1}", AntName, ((collider) as Ant).AntName));
+                            GD.Print(string.Format("{0}: zusammensto√ü mit {1}", AntName, ((collider) as Ant).AntName));
                         else
-                            GD.Print(string.Format("{0}: zusammenstoﬂ mit {1}", AntName, collider.Name)); 
+                            GD.Print(string.Format("{0}: zusammensto√ü mit {1}", AntName, collider.Name)); 
 
                         velocity = velocity.Bounce(coll.GetNormal());
 

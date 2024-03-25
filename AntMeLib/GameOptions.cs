@@ -8,7 +8,8 @@ namespace AntMeLib
 {
     public static class GameOptions
     {
-        public static int Seed = 0;
-        public static Random Rand;
+        public static int Seed = 12345;
+
+        public static Random Random = Seed > 0 ? new Random(Seed) : new Random();
     }
 }

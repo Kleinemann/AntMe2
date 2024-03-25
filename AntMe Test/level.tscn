@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Level.cs" id="1_m0a2r"]
 [ext_resource type="PackedScene" uid="uid://buy3yclfostdi" path="res://Wall.tscn" id="2_rx23m"]
-[ext_resource type="PackedScene" uid="uid://bbt22bw1wo0sq" path="res://uiTest.tscn" id="3_k0jgx"]
+[ext_resource type="PackedScene" path="res://uiTest.tscn" id="3_k0jgx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8mrft"]
 sky_top_color = Color(0.345098, 0.447059, 0.956863, 1)
@@ -50,7 +50,7 @@ transform = Transform3D(1, 0, 0, 0, 0.960784, 0.277298, 0, -0.277298, 0.960784, 
 transform = Transform3D(1, 0, 0, 0, 0.0375332, 0.999295, 0, -0.999295, 0.0375332, 0, 6.15325, 0)
 
 [node name="Wall" parent="." instance=ExtResource("2_rx23m")]
-transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, -1.82867, 0, -0.897411)
+transform = Transform3D(0.912202, 0, -1.77985, 0, 2, 0, 1.77985, 0, 0.912202, -0.86738, 0, -0.897411)
 
 [node name="Wall2" parent="." instance=ExtResource("2_rx23m")]
 transform = Transform3D(2.67228, 0, -1.36342, 0, 3, 0, 1.36342, 0, 2.67228, 7.20825, 0, 4.45126)

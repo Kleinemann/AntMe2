@@ -7,6 +7,11 @@
 
     public interface iAnt
     {
+        public string AntName
+        {        
+            get; 
+        }
+
         public StatusEnum Status
         {
             get;

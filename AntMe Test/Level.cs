@@ -18,15 +18,10 @@ public partial class Level : Node3D
 	public override void _Ready()
 	{
         if (GameOptions.Seed > 0)
-        {
             GD.Seed((ulong)GameOptions.Seed);
-            GameOptions.Rand = new Random((int)GameOptions.Seed);
-        }
         else
-        {
             GD.Randomize();
-            GameOptions.Rand = new Random();
-        }
+
         CameraDefault = GetViewport().GetCamera3D();
 
         LadeKolonieen();
@@ -100,8 +95,6 @@ public partial class Level : Node3D
 		Ant a = szene.Instantiate<Ant>();
         a.Sim = (AmeiseBasis)Activator.CreateInstance(Kolonies[0]);
         
-        GD.Print(a.Sim.AntName);
-
         float ranX = GD.Randf() - 0.5F;
         float ranZ = GD.Randf() - 0.5F;
         a.velocity = new Vector3(ranX, 0, ranZ).Normalized();
