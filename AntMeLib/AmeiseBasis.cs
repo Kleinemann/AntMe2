@@ -37,5 +37,10 @@ namespace AntMeLib
         {
             
         }
+
+        public void Turn(int degrees)
+        {
+            
+        }
     }
 }

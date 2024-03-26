@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Level.cs" id="1_m0a2r"]
 [ext_resource type="PackedScene" uid="uid://buy3yclfostdi" path="res://Wall.tscn" id="2_rx23m"]
-[ext_resource type="PackedScene" path="res://uiTest.tscn" id="3_k0jgx"]
+[ext_resource type="PackedScene" uid="uid://bbt22bw1wo0sq" path="res://uiTest.tscn" id="3_k0jgx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8mrft"]
 sky_top_color = Color(0.345098, 0.447059, 0.956863, 1)

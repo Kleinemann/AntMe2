@@ -5,7 +5,7 @@ public partial class Ant : RigidBody3D, iAnt
 {
 	public Vector3 velocity = Vector3.Forward;
 	float speed = 2.5f;
-    float turnSpeed = 1f;
+    float turnSpeed = 5f;
 
     public AmeiseBasis Sim;
 
@@ -18,6 +18,11 @@ public partial class Ant : RigidBody3D, iAnt
     public void Move()
     {
         Sim.Move();
+    }
+
+    public void Turn(int degrees)
+    {
+        //Sim.Turn(degrees);
     }
 
     public void Stop()
@@ -84,11 +89,21 @@ public partial class Ant : RigidBody3D, iAnt
 		{
 			if (mButton.Pressed)
 			{
-				GD.Print("FLOOR");
-				Level.CameraCurrent = GetNode<Camera3D>("Camera3D");
-				Level.CameraCurrent.Current = true;
+                if (mButton.ButtonIndex == MouseButton.Left)
+                {
+
+                    GD.Print("FLOOR");
+                    Level.CameraCurrent = GetNode<Camera3D>("Camera3D");
+                    Level.CameraCurrent.Current = true;
+                }
+
+                if (mButton.ButtonIndex == MouseButton.Right)
+                {
+
+                }
             }
 		}
     }
-	
+
+
 }

@@ -17,6 +17,8 @@
             get;
         }
 
+        public void Turn(int degrees);
+
         public void Wait();
         public void Stop();
         public void Move();
