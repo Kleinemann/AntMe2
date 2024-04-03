@@ -7,6 +7,11 @@
 
     public interface iAnt
     {
+        public float TurnTarget
+        {
+            get; 
+        }
+
         public string AntName
         {        
             get; 

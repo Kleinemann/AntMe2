@@ -8,6 +8,8 @@ public partial class Level : Node3D
 {
 	public static Camera3D CameraCurrent;
 	Camera3D CameraDefault;
+    public static Ant AntSelected;
+
 	public static bool running = true;
 
     List<Type> Kolonies = new List<Type>();
@@ -61,6 +63,19 @@ public partial class Level : Node3D
         Label lRunning = ui.GetNode<Label>("PlayerInfoBox/txtRunning");
         lRunning.Text = running ? "Running" : "Pause";
         lRunning.LabelSettings.FontColor = running ? Colors.Green : Colors.Red;
+
+        Label lAntName = ui.GetNode<Label>("PlayerInfoBox/txtAntName");
+        Label lAntStatus = ui.GetNode<Label>("PlayerInfoBox/txtStatus");
+        if (AntSelected == null)
+        {
+            lAntName.Text = "";
+            lAntStatus.Text = "";
+        }
+        else
+        {
+            lAntName.Text = AntSelected.AntName;
+            lAntStatus.Text = AntSelected.Status.ToString();
+        }
     }
 
     public override void _Input(InputEvent @event)
@@ -81,10 +96,13 @@ public partial class Level : Node3D
         {
             if (mButton.Pressed)
             {
-				if (!CameraDefault.Current)
-					CameraDefault.Current = true;
-				else
-					NewAnt(position);
+                if (!CameraDefault.Current)
+                {
+                    CameraDefault.Current = true;
+                    AntSelected = null;
+                }
+                else
+                    NewAnt(position);
             }
         }
 	}

@@ -15,6 +15,8 @@ public partial class Ant : RigidBody3D, iAnt
 
     public StatusEnum Status => Sim.Status;
 
+    public float TurnTarget => Sim.TurnTarget;
+
     public void Move()
     {
         Sim.Move();
@@ -22,7 +24,7 @@ public partial class Ant : RigidBody3D, iAnt
 
     public void Turn(int degrees)
     {
-        //Sim.Turn(degrees);
+        Sim.Turn(degrees);
     }
 
     public void Stop()
@@ -78,6 +80,17 @@ public partial class Ant : RigidBody3D, iAnt
                 break;
 
             case StatusEnum.TURN:
+                float globalR = Mathf.RadToDeg(GlobalTransform.Origin.Z);
+                float leftR = TurnTarget - globalR;
+
+                float currentR = globalR + (leftR <= turnSpeed ? leftR : turnSpeed);
+
+                float turn = Mathf.DegToRad(currentR);
+                RotateY(turn);
+                velocity = GlobalTransform.Basis.Z.Normalized();
+
+                if(leftR <= turnSpeed)
+                    Sim.Move();
                 break;
         }
     }
@@ -95,11 +108,12 @@ public partial class Ant : RigidBody3D, iAnt
                     GD.Print("FLOOR");
                     Level.CameraCurrent = GetNode<Camera3D>("Camera3D");
                     Level.CameraCurrent.Current = true;
+                    Level.AntSelected = this;
                 }
 
                 if (mButton.ButtonIndex == MouseButton.Right)
                 {
-
+                    Turn(45);
                 }
             }
 		}
