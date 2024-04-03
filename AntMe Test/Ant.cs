@@ -5,6 +5,7 @@ public partial class Ant : RigidBody3D, iAnt
 {
 	public Vector3 velocity = Vector3.Forward;
 	float speed = 2.5f;
+    float _currentRunValue;
     float turnSpeed = 5f;
 
     public AmeiseBasis Sim;
@@ -24,7 +25,15 @@ public partial class Ant : RigidBody3D, iAnt
 
     public void Turn(int degrees)
     {
-        Sim.Turn(degrees);
+        float globalR = Mathf.RadToDeg(GlobalTransform.Origin.Z);
+
+        int deg = (int)globalR + degrees;
+
+        if (deg < 0)
+            deg += 360;
+        if (deg > 360)
+            deg -= 360;
+        Sim.Turn(deg);
     }
 
     public void Stop()
@@ -81,16 +90,33 @@ public partial class Ant : RigidBody3D, iAnt
 
             case StatusEnum.TURN:
                 float globalR = Mathf.RadToDeg(GlobalTransform.Origin.Z);
-                float leftR = TurnTarget - globalR;
 
-                float currentR = globalR + (leftR <= turnSpeed ? leftR : turnSpeed);
+                float left = globalR - TurnTarget;
+                if (left < 0) left += 360;
+
+                float right = TurnTarget - globalR;
+                if (right > 360) right -= 360;
+
+                float turnStep = 0;
+
+                if (left <= right)
+                    turnStep = left > turnSpeed ? -turnSpeed : -left;
+                else
+                    turnStep = right > turnSpeed ? turnSpeed : right;
+
+
+                float currentR = globalR + (float)(((double)turnStep) * delta);
+
 
                 float turn = Mathf.DegToRad(currentR);
+
                 RotateY(turn);
                 velocity = GlobalTransform.Basis.Z.Normalized();
 
-                if(leftR <= turnSpeed)
+                if(turn > -0.00000000001 && turn < 0.0000000001)
                     Sim.Move();
+
+                
                 break;
         }
     }

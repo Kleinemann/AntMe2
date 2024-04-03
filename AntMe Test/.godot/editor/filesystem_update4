@@ -1,2 +1,6 @@
 res://Ant.cs
 res://Level.cs
+res://ant.tscn
+res://level.tscn
+res://Wall.tscn
+res://uiTest.tscn
